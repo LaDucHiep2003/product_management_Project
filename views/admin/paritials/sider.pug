@@ -1,0 +1,20 @@
+.sider 
+    .inner-menu 
+        ul 
+            li 
+                a(href=`${prefixAdmin}/dashboard`) Tong quan 
+            if(role.permissions.includes("products-category_views"))
+                li 
+                    a(href=`${prefixAdmin}/products-category`) Danh Muc San pham 
+            if(role.permissions.includes("products_views")) 
+                li 
+                    a(href=`${prefixAdmin}/products`) Danh Sach San pham 
+            if(role.permissions.includes("roles_views"))
+                li 
+                    a(href=`${prefixAdmin}/roles`) Nhom quyen
+            if(role.permissions.includes("roles_permissions"))
+                li 
+                    a(href=`${prefixAdmin}/roles/permissions`) Phan quyen
+            if(role.permissions.includes("accounts_views"))
+                li 
+                    a(href=`${prefixAdmin}/accounts`) Danh Sach Tai Khoan

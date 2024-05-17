@@ -1,0 +1,37 @@
+
+extends ../../layout/default.pug
+
+block main
+
+
+    if(product.title)
+        h1(class = "mt-4") #{product.title}
+    if(product.price)
+        div(class = "mt-4") Gia : <b > #{product.price} </b>
+    if(product.price)
+        div(class = "mt-4") Giam Gia : <b > #{product.discountPercentage} </b>
+    if(product.stock)
+        div(class = "mt-4") Con Lai : <b > #{product.stock} </b>
+    if(product.thumbnail)
+        div(class = "mt-4")
+            img(
+                src= product.thumbnail 
+                style = "width : 100px"
+            )
+    if(product.status)
+        div(class = "mt-4")
+            span Trang Thai 
+            if(product.status == "active")
+                span(class = "badge badge-success") Hoat Dong 
+            else 
+                span(class = "badge badge-danger") Dung Hoat Dong 
+    if(product.position)
+        div(class = "mt-4") Vi Tri : <b > #{product.position} </b>
+    if(product.description)
+        div(class = "mt-4") <b > !{product.description} </b>
+    a(
+        class = "btn btn-warning"
+        href=`${prefixAdmin}/products/edit/${product.id}`
+    ) Chinh Sua
+
+    script(src="/admin/js/products.js") 

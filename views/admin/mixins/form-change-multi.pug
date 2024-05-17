@@ -1,0 +1,24 @@
+
+mixin form-change-multi(path)
+    form(
+        action= path 
+        method = "POST"
+        form-change-multi
+    ) 
+
+        .d-flex.align-items-start 
+            .form-group
+                select(name = "type" class="form-control")
+                    option(disabled selected) ---Chon hoat dong--- 
+                    option(value="active") Hoat dong 
+                    option(value="inactive") Dung Hoat dong 
+                    option(value="delete-all") Xoa Tat Ca 
+                    option(value="change-position") Cap Nhat Vi Tri
+            .form-group 
+                input(
+                    type="text"
+                    name = "ids"
+                    value = ""
+                    class = "form-control d-none"
+                )
+            button(type = "submit" class="btn btn-primary") Ap Dung

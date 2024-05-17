@@ -1,0 +1,166 @@
+extends ../../layout/default.pug
+include ../../mixins/alert.pug
+include ../../mixins/select-tree.pug
+
+
+block main 
+    +alert-error(5000)
+    h1(class = "mb-4") Them Moi San Pham 
+
+    form(
+        action= `${prefixAdmin}/products/create`
+        enctype="multipart/form-data"
+        id = "form-create-product"
+        method = "POST"
+    ) 
+
+        div(class = "form-group")
+            label(for="title") Tieu De 
+            input(
+                type="text"
+                class = "form-control"
+                id = "title"
+                name = "title"
+                
+            ) 
+        div(class = "form-group")
+            label(for="desc") Mo Ta 
+            textarea(
+                class = "form-control textarea-mce"
+                id = "desc"
+                name = "description"
+                row = "5"
+            ) 
+        div(class = "form-group")
+            label(for="product_category_id") Danh Muc
+            select(
+                name = "product_category_id"
+                id = "product_category_id"
+                class = "form-control"
+            )
+                option(value = "") -----Chon danh muc-----
+                if(category)
+                    +select-tree(category)
+        div(class = "form-group form-check form-check-inline")
+            
+            input(
+                type="radio"
+                class = "form-check-input"
+                id = "featured1"
+                name = "featured"
+                value = "1"
+            ) 
+            label(for = "feature1" class = "form-check-label") Noi bat
+
+        div(class = "form-group form-check form-check-inline")
+            
+            input(
+                type="radio"
+                class = "form-check-input"
+                id = "featured0"
+                name = "featured"
+                value = "0"
+                checked
+            ) 
+            label(for = "featured0" class = "form-check-label") Khong noi bat
+        
+
+
+        div(class = "form-group")
+            label(for="title") Gia
+            input(
+                type="price"
+                class = "form-control"
+                id = "price"
+                name = "price"
+                value = "0"
+                min = "0"
+            ) 
+        
+        div(class = "form-group")
+            label(for="discount") % Giam Gia 
+            input(
+                type="number"
+                class = "form-control"
+                id = "discount"
+                name = "discountPercentage"
+                value = "0"
+                min = "0"
+
+            ) 
+        
+        div(class = "form-group")
+            label(for="stock") So luong
+            input(
+                type="text"
+                class = "form-control"
+                id = "stock"
+                name = "stock"
+                value = "0"
+                min = "0"
+            ) 
+        div(
+            class = "form-group"
+            upload-image
+        )
+            
+            label(for="thumbnail") Anh
+            input(
+                type="file"
+                class = "form-control-file"
+                id = "thumbnail"
+                name = "thumbnail"
+                accept = "image/*"
+                upload-image-input
+            ) 
+            button(
+                class = "btn-cencel-upload hidden"
+                cencel-upload) X
+            
+            img(
+                src=""
+                class = "image-preview"
+                upload-image-preview
+            )
+        div(class = "form-group")
+            label(for="position") Vi tri
+            input(
+                type="text"
+                class = "form-control"
+                id = "position"
+                name = "position"
+                placeholder = "Tu Dong tang"
+                min = "1"
+            ) 
+        div(class = "form-group form-check form-check-inline")
+            
+            input(
+                type="radio"
+                class = "form-check-input"
+                id = "statusActive"
+                name = "status"
+                value = "active"
+                checked
+            ) 
+            label(for = "statusActive" class = "form-check-label") Hoat Dong 
+
+        div(class = "form-group form-check form-check-inline")
+            
+            input(
+                type="radio"
+                class = "form-check-input"
+                id = "statusInActive"
+                name = "status"
+                value = "inactive"
+            ) 
+            label(for = "statusInActive" class = "form-check-label") Dung Hoat Dong 
+        
+        div(class = "form-group")
+            button(
+                type = "submit"
+                class = "btn btn-primary"
+            ) Tao moi
+        
+
+
+    script(src="/admin/js/product.js") 

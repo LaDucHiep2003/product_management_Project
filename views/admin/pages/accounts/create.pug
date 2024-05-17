@@ -1,0 +1,111 @@
+
+extends ../../layout/default.pug
+include ../../mixins/alert.pug
+
+block main 
+    +alert-error(5000)
+    h1(class = "mb-4") Them Moi Tai Khoan
+
+    form(
+        action= `${prefixAdmin}/accounts/create`
+        enctype="multipart/form-data"
+        method = "POST"
+    ) 
+
+        div(class = "form-group")
+            label(for="fullName") Ho Ten * 
+            input(
+                type="text"
+                class = "form-control"
+                id = "fullName"
+                name = "fullName"
+                
+            ) 
+        div(class = "form-group")
+            label(for="email") Email * 
+            input(
+                type="email"
+                class = "form-control"
+                id = "email"
+                name = "email"
+                
+            ) 
+        div(class = "form-group")
+            label(for="passWord") Mat Khau
+            input(
+                type="password"
+                class = "form-control"
+                id = "passWord"
+                name = "passWord"
+                
+            ) 
+        div(class = "form-group")
+            label(for="phone") So dien thoai 
+            input(
+                type="text"
+                class = "form-control"
+                id = "phone"
+                name = "phone"
+                
+            ) 
+        div(
+            class = "form-group"
+            upload-image
+        )
+            
+            label(for="avatar") Avata
+            input(
+                type="file"
+                class = "form-control-file"
+                id = "avatar"
+                name = "avatar"
+                accept = "image/*"
+                upload-image-input
+            ) 
+            button(
+                class = "btn-cencel-upload hidden"
+                cencel-upload) X
+            
+            img(
+                src=""
+                class = "image-preview"
+                upload-image-preview
+            )
+        div(class = "form-group")
+            label(for = "role_id") Phan quyen 
+            select(class = "form-control" id = "role_id" name = "role_id")
+                option(disabled) --Chon--
+                each item in roles
+                    option(value = item.id) #{item.title}
+
+
+
+        div(class = "form-group form-check form-check-inline")
+            
+            input(
+                type="radio"
+                class = "form-check-input"
+                id = "statusActive"
+                name = "status"
+                value = "active"
+                checked
+            ) 
+            label(for = "statusActive" class = "form-check-label") Hoat Dong 
+
+        div(class = "form-group form-check form-check-inline")
+            
+            input(
+                type="radio"
+                class = "form-check-input"
+                id = "statusInActive"
+                name = "status"
+                value = "inactive"
+            ) 
+            label(for = "statusInActive" class = "form-check-label") Dung Hoat Dong 
+        div(class = "form-group")
+            button(
+                type = "submit"
+                class = "btn btn-primary"
+            ) Tao moi 
+        
+        

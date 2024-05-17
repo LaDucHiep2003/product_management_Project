@@ -1,0 +1,153 @@
+extends ../../layout/default.pug
+include ../../mixins/filter-status.pug
+include ../../mixins/search.pug
+include ../../mixins/pagination.pug
+include ../../mixins/form-change-multi.pug
+include ../../mixins/alert.pug
+include ../../mixins/sort.pug
+include ../../mixins/moment.pug
+
+block main
+    if(role.permissions.includes("products_views"))
+        +success("5000")
+        h1 Trang Danh sach san pham
+        .card.mb-3 
+            .card-header Bo loc va tim kiem 
+            .card-body 
+                .row
+                    .col-6
+                        +filter-status(filterStatus)
+                    .col-6 
+                        +search(keyword)
+        .cart-mt-3 
+            .card-header Sap xep 
+            .card-body 
+                .row 
+                    .col-4 
+                        +sort()
+        .card.mb-3 
+            .card-header Danh sach
+            .card-body 
+                .row 
+                    .col-8 
+                        +form-change-multi(`${prefixAdmin}/products/change-multi?_method=PATCH`)
+                    .col-4 
+                        a(
+                            href= `${prefixAdmin}/products/create`
+                            class = "btn btn-outline-success"
+
+                        ) + Them Moi
+
+                table(
+                    class = "table table-hover table-sm"
+                    checkbox-multi
+                    )
+                    thead 
+                        tr 
+                            th 
+                                input(type="checkbox" name="checkall")
+                            th STT 
+                            th Hinh anh 
+                            th Tieu de 
+                            th Gia 
+                            th Vi TRi
+                            th Trang thai
+                            th Nguoi tao 
+                            th Nguoi cap nhat 
+                            th Hanh dong 
+                    tbody 
+                        each item,index in products
+                            tr 
+                                td 
+                                    input(
+                                        type="checkbox" 
+                                        name="id" 
+                                        value = item.id
+                                    )
+                                td #{pagination.limitItems * (pagination.currentPage - 1) + (index + 1)}
+                                td 
+                                    img(
+                                        src=item.thumbnail
+                                        alt=item.title
+                                        width = "100px"
+                                        height = "100px"
+
+                                        )
+                                td #{item.title}
+                                td #{item.price}$
+                                td 
+                                    input(
+                                        type = "number"
+                                        value = item.position 
+                                        style = "width : 60px"
+                                        min = "1"
+                                        name = "position"
+                                    )
+                                
+                                td 
+                                    if(item.status == "active")
+                                        a(href="javascript:;" 
+                                        class = "badge badge-success"
+                                        button-change-status  
+                                        data-status = item.status
+                                        data-id = item.id
+                                    ) Hoat dong 
+                                    else
+                                        a(
+                                            href="javascript:;" 
+                                            class = "badge badge-danger"
+                                            button-change-status  
+                                            data-status = item.status
+                                            data-id = item.id
+                                        ) Dung Hoat dong 
+                                td 
+                                    p #{item.accountFullname}
+
+                                    p
+                                        +formatDateTime(item.createdBy.createdAt)
+                                td 
+                                    - const updated = item.updatedBy.slice(-1)[0]
+                                    if(updated)
+                                        p #{item.accountFullname}
+
+                                        p
+                                            +formatDateTime(updated.updatedAt)
+                                    
+                                td 
+                                    a(
+                                        href = `${prefixAdmin}/products/detail/${item.id}`
+                                        class = "btn btn-secondary btn-sm"
+                                    
+                                    ) Chi Tiet 
+                                    a(
+                                        href = `${prefixAdmin}/products/edit/${item.id}`
+                                        class = "btn btn-warning btn-sm"
+                                    
+                                    ) Sua 
+                                    button(
+                                        class = "btn btn-danger btn-sm ml-1"
+                                        data-id = item.id
+                                        button-delete
+                                    ) Xoa 
+        nav 
+            +pagination(pagination)
+
+            form(
+                action = ""
+                method = "POST"
+                id = "form-change-status"
+                data-path = `${prefixAdmin}/products/change-status`
+            ) 
+            form(
+                action = ""
+                method = "POST"
+                id = "form-delete-item"
+                data-path = `${prefixAdmin}/products/delete`
+            ) 
+       
+    script(src="/admin/js/products.js") 
+            
+            
+
+
+                    

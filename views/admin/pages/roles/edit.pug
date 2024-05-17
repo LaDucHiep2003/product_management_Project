@@ -1,0 +1,39 @@
+
+extends ../../layout/default.pug
+include ../../mixins/alert.pug
+include ../../mixins/select-tree.pug
+
+
+block main 
+    +alert-error(5000)
+    +success(5000)
+    h1(class = "mb-4") Cap Nhat Nhom Quyen
+
+    form(
+        action= `${prefixAdmin}/roles/edit/${data.id}?_method=PATCH`
+        method = "POST"
+    ) 
+
+        div(class = "form-group")
+            label(for="title") Tieu De 
+            input(
+                type="text"
+                class = "form-control"
+                id = "title"
+                name = "title"
+                value = data.title
+            ) 
+        div(class = "form-group")
+            label(for="desc") Mo Ta 
+            input(
+                type="text"
+                class = "form-control"
+                id = "desc"
+                name = "description"
+                value = data.description
+            ) 
+        div(class = "form-group")
+            button(
+                type = "submit"
+                class = "btn btn-primary"
+            ) Tao moi

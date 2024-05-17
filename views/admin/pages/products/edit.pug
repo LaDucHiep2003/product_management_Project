@@ -1,0 +1,169 @@
+extends ../../layout/default.pug
+include ../../mixins/alert.pug
+include ../../mixins/select-tree.pug
+
+
+block main 
+    +alert-error(5000)
+    +success("5000")
+    h1(class = "mb-4") Chinh Sua San Pham 
+
+    form(
+        action= `${prefixAdmin}/products/edit/${product.id}?_method=PATCH`
+        enctype="multipart/form-data"
+        id = "form-edit-product"
+        method = "POST"
+    ) 
+
+        div(class = "form-group")
+            label(for="title") Tieu De 
+            input(
+                type="text"
+                class = "form-control"
+                id = "title"
+                name = "title"
+                value = product.title
+            ) 
+        div(class = "form-group")
+            label(for="desc") Mo Ta 
+            textarea(
+                class = "form-control"
+                id = "desc"
+                name = "description"
+                row = "5"
+            
+            ) #{product.description}
+
+        div(class = "form-group")
+            label(for="product_category_id") Danh Muc
+            select(
+                name = "product_category_id"
+                id = "product_category_id"
+                class = "form-control"
+            )
+                option(value = "") -----Chon danh muc-----
+                if(category)
+                    +select-tree(category,1,product.product_category_id)
+        div(class = "form-group form-check form-check-inline")
+            
+            input(
+                type="radio"
+                class = "form-check-input"
+                id = "featured1"
+                name = "featured"
+                value = "1"
+                checked = (product.featured == "1" ? true : false)
+            ) 
+            label(for = "feature1" class = "form-check-label") Noi bat
+
+        div(class = "form-group form-check form-check-inline")
+            
+            input(
+                type="radio"
+                class = "form-check-input"
+                id = "featured0"
+                name = "featured"
+                value = "0"
+                checked = (product.featured == "0" ? true : false)
+            ) 
+            label(for = "featured0" class = "form-check-label") Khong noi bat
+
+        div(class = "form-group")
+            label(for="title") Gia
+            input(
+                type="price"
+                class = "form-control"
+                id = "price"
+                name = "price"
+                min = "0"
+                value = product.price
+            ) 
+        
+        div(class = "form-group")
+            label(for="discount") % Giam Gia 
+            input(
+                type="number"
+                class = "form-control"
+                id = "discount"
+                name = "discountPercentage"
+                min = "0"
+                value = product.discountPercentage
+            ) 
+        
+        div(class = "form-group")
+            label(for="stock") So luong
+            input(
+                type="text"
+                class = "form-control"
+                id = "stock"
+                name = "stock"
+                min = "0"
+                value = product.stock
+            ) 
+        div(
+            class = "form-group"
+            upload-image
+        )
+            
+            label(for="thumbnail") Anh
+            input(
+                type="file"
+                class = "form-control-file"
+                id = "thumbnail"
+                name = "thumbnail"
+                accept = "image/*"
+                upload-image-input
+            ) 
+            button(
+                class = "btn-cencel-upload hidden"
+                cencel-upload) X
+            
+            img(
+                src= product.thumbnail
+                class = "image-preview"
+                upload-image-preview
+            )
+        div(class = "form-group")
+            label(for="position") Vi tri
+            input(
+                type="text"
+                class = "form-control"
+                id = "position"
+                name = "position"
+                placeholder = "Tu Dong tang"
+                min = "1"
+                value = product.position
+            ) 
+        div(class = "form-group form-check form-check-inline")
+            
+            input(
+                type="radio"
+                class = "form-check-input"
+                id = "statusActive"
+                name = "status"
+                value = "active"
+                checked = (product.status == "active" ? true : false)
+            ) 
+            label(for = "statusActive" class = "form-check-label") Hoat Dong 
+
+        div(class = "form-group form-check form-check-inline")
+            
+            input(
+                type="radio"
+                class = "form-check-input"
+                id = "statusInActive"
+                name = "status"
+                value = "inactive"
+                checked = (product.status == "inactive" ? true : false)
+            ) 
+            label(for = "statusInActive" class = "form-check-label") Dung Hoat Dong 
+        
+        div(class = "form-group")
+            button(
+                type = "submit"
+                class = "btn btn-primary"
+            ) Tao moi
+        
+
+
+    script(src="/admin/js/product.js") 

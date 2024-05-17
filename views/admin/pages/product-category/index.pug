@@ -1,0 +1,45 @@
+extends ../../layout/default.pug
+include ../../mixins/table-tree.pug
+
+block main
+    if(role.permissions.includes("products-category_views"))
+        h1 Trang Danh Danh Muc San Pham
+
+        .card.mb-3 
+        
+            .card-header Danh Sach
+                .card-body 
+                    .row
+                        .col-8 
+                        .col-4 
+                            if(role.permissions.includes("products-category_create"))
+                                a(
+                                    href= `${prefixAdmin}/products-category/create`
+                                    class = "btn btn-outline-success"
+
+                                ) + Them Moi
+                    table(
+                        class = "table table-hover table-sm"
+                        checkbox-multi
+                        )
+                        thead 
+                            tr 
+                                th 
+                                    input(type="checkbox" name="checkall")
+                                th STT 
+                                th Hinh anh 
+                                th Tieu de 
+                                th Vi TRi
+                                th Trang thai 
+                                th Hanh dong 
+                        tbody 
+                            +table-tree(records)
+    else 
+        h1 xxx
+
+    script(src="/admin/js/products.js") 
+            
+            
+
+
+                    

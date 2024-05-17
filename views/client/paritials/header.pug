@@ -1,0 +1,53 @@
+include ../mixins/sub-menu.pug
+
+header.header 
+    .container 
+        .row.align-item-center 
+            .col-3 
+                .inner-logo 
+                    a(href = "/")
+                        img(src="https://res.cloudinary.com/dsxkwbfyq/image/upload/v1710855433/logo-2024-nek-1_af0zqv.png", alt="logo")
+            .col-5 
+                form(
+                    action="/search"
+                    method = "GET"
+                ) 
+                    div(class = "form-group d-flex mb-0")
+                        input(
+                            type="text"
+                            placeholder = "Nhap tu khoa"
+                            class = "form-control"
+                            name= "keyword"
+                            value = keyWord
+                        )
+                        button(
+                            type = "submit"
+                            class = "btn btn-primary"
+                        ) Tim
+            .col-4
+                .inner-menu 
+                    ul 
+                        li 
+                            a(href="/") Trang chủ
+                        li(class = "sub-menu")
+                            - const patchProduct = "/products"
+                            a(href=patchProduct) Sản phẩm  
+                            +sub-menu(layoutProductCategory, patchProduct)
+                        li 
+                            a(href="/cart") Giỏ hàng (#{miniCart ? miniCart.totalQuantity : 0}) 
+                        if(user)
+                            li 
+                                a(href="/user/info") #{user.fullName} 
+                            li 
+                                a(href="/user/logout") Dang xuat 
+                        else
+                            li 
+                                a(href="/user/register") Dang ky 
+                            li 
+                                a(href="/user/login") Dang nhap 
+
+                            
+  
+
+
+
