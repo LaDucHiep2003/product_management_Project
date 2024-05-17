@@ -6,13 +6,13 @@ block main
     .container.my-5    
         .row.justify-content-center 
             .col-8 
-                h1(class = "text-center") Dang ky tai khoan 
+                h1(class = "text-center") Đăng ký tài khoản
                 form(
                     action= `/user/register`
                     method = "POST"
                 ) 
                     div(class = "form-group")
-                        label(for="fullName") Ho Ten * 
+                        label(for="fullName") Họ tên * 
                         input(
                             type="text"
                             class = "form-control"
@@ -30,7 +30,7 @@ block main
                             required
                         ) 
                     div(class = "form-group")
-                        label(for="passWord") Mat Khau
+                        label(for="passWord") Mật khẩu
                         input(
                             type="password"
                             class = "form-control"
@@ -42,4 +42,4 @@ block main
                         button(
                             type = "submit"
                             class = "btn btn-primary"
-                        ) Dang ky 
+                        ) Đăng ký
