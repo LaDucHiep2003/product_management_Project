@@ -63,14 +63,30 @@ if(buttonIcon){
 // Insert Icon chat
 const emojiPicker = document.querySelector("emoji-picker")
 if(emojiPicker){
-    const inputChat = document.querySelector(".chat .inner-form input[name = 'content']")
+    const inputChat = document.querySelector(".chat .inner-form input[name='content']")
     emojiPicker.addEventListener("emoji-click", (e) => {
         const icon = e.detail.unicode
         inputChat.value = inputChat.value + icon
     })
+
+    // Input Keyup
+    inputChat.addEventListener("keyup", () => {
+        socket.emit("CLIENT_SEND_TYPING","show")
+    })
+
+    // End Input keyup
+  
 }
 
 // End Insert Icon chat
 
-// End Show Icon
-  
+// End Show Icon chat
+
+// SERVER_RETURN_TYPING
+
+socket.on("SERVER_RETURN_TYPING", (data) => {
+    console.log(data);
+})
+
+// End SERVER_RETURN_TYPING
+
