@@ -252,6 +252,59 @@
 /* End Show Alert */
 
 /* Chat */
+/* Container */
+.chat {
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    padding: 16px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Inner body */
+  .inner-body {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    max-height: 450px;
+    overflow-y: auto;
+  }
+  
+  /* Incoming message */
+  .inner-incoming {
+    align-self: flex-start;
+    background-color: #e1ffc7;
+    padding: 10px;
+    border-radius: 8px;
+    max-width: 75%;
+  }
+  
+  /* Outgoing message */
+  .inner-outgoing {
+    align-self: flex-end;
+    background-color: #cce5ff;
+    padding: 10px;
+    border-radius: 8px;
+    max-width: 75%;
+  }
+  
+  /* Name link */
+  .inner-name a {
+    font-weight: bold;
+    color: #333;
+    text-decoration: none;
+    margin-bottom: 4px;
+    display: block;
+  }
+  
+  /* Content */
+  .inner-content {
+    font-size: 14px;
+    color: #333;
+  }
+  
 
 .chat .inner-foot{
     border-bottom: 1px solid #ddd;

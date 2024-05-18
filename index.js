@@ -14,6 +14,9 @@ const cookieParser = require("cookie-parser")
 const session = require("express-session")
 const moment = require("moment")
 
+const http = require('http');
+const { Server } = require("socket.io");
+
 
 const port = process.env.port
 
@@ -24,6 +27,12 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use(express.static(`${__dirname}/public`))
 app.set('views', `${__dirname}/views`)
 app.set('view engine', 'pug')
+
+// Socket Io
+const server = http.createServer(app);
+const io = new Server(server);
+
+global._io = io
 
 // Flag
 app.use(cookieParser('namamn'));
@@ -51,6 +60,6 @@ app.get("*", (req,res) => {
   })
 })
 
-app.listen(port, () => {
+server.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
 })
